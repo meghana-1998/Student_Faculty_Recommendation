@@ -1,0 +1,65 @@
+<!-- HTML student form -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Track</title>
+    <link rel="stylesheet" href="styles.css">
+    </style>
+</head>
+<body>
+    <script>
+        document.querySelector('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log(e.target);
+            const formData = new FormData(e.target);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+    
+            const response = await fetch('https://hazxk80978.execute-api.us-east-1.amazonaws.com/prod', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (response.ok) {
+                alert('Data submitted successfully!');
+            } else {
+                alert('Error submitting data: ' + await response.text());
+            }
+        });
+    </script>
+    <form action="" method="post">
+		<h1>AWS Track - PatriotHacks 2023</h1>
+        <h3> Please fill the form to find a suitable mentor for your research endeveours at George Mason University!</h3>
+             
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required><br>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required><br>
+
+        <label for="telephone">Telephone Number:</label>
+        <input type="tel" id="telephone" name="telephone" required><br>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="raffle">What are your areas of interest?</label>
+        <input type="text" id="raffle" placeholder='Machine Learning' name='raffle' ><br>
+
+        <p>Upload Your Resume</p>
+        <label for="resume">Choose a file:</label>
+        <input type="file" name="resume" id="resume" accept=".pdf, .doc, .docx">
+        <input type="submit" value="Upload">
+        
+
+    </form>
+</body>
+</html>
